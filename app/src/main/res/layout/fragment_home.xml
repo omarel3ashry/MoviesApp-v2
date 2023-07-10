@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.home.HomeFragment"
+    tools:ignore="HardcodedText">
 
-    <LinearLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home Fragment" />
+
+    <Button
+        android:id="@+id/popularMoviesListBtn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.home.HomeFragment"
-        android:orientation="vertical"
-        tools:ignore="HardcodedText">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Popular List" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home Fragment" />
+    <Button
+        android:id="@+id/nowPlayingMoviesListBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Now Playing List" />
 
-        <Button
-            android:id="@+id/moviesListBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Movies List" />
-    </LinearLayout>
-</layout>
+    <Button
+        android:id="@+id/upcomingMoviesListBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Upcoming List" />
+
+    <Button
+        android:id="@+id/topRatedMoviesListBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Top Rated List" />
+
+
+</LinearLayout>

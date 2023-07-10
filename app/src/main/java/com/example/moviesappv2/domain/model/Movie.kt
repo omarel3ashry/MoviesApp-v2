@@ -1,8 +1,12 @@
 package com.example.moviesappv2.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * Created by Omar Elashry on 7/8/2023.
  */
+@Parcelize
 data class Movie(
     val adult: Boolean,
     val backdropPath: String,
@@ -14,4 +18,4 @@ data class Movie(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double
-)
+) : Parcelable
