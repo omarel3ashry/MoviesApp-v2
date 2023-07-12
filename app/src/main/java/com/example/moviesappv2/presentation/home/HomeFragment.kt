@@ -5,14 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesappv2.R
 import com.example.moviesappv2.common.MoviesListType
 import com.example.moviesappv2.common.Resource
 import com.example.moviesappv2.databinding.FragmentHomeBinding
+import com.example.moviesappv2.domain.model.Movie
 import com.example.moviesappv2.presentation.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,10 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val sharedHomeViewModel: HomeViewModel by activityViewModels()
 
+    private lateinit var popularMoviesAdapter: PosterMoviesAdapter
+    private lateinit var nowPlayingMoviesAdapter: BackdropMoviesAdapter
+    private lateinit var upcomingMoviesAdapter: BackdropMoviesAdapter
+    private lateinit var topRatedMoviesAdapter: MoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,35 +40,37 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        popularRecViewSetup()
+        nowPlayingRecViewSetup()
+        upcomingRecViewSetup()
+        topRatedRecViewSetup()
+        setupViewModelObservers()
         binding.apply {
-            popularMoviesListBtn.setOnClickListener {
+            morePopular.setOnClickListener {
                 sharedHomeViewModel.setMoviesListType(MoviesListType.POPULAR)
                 findNavController().navigate(R.id.action_homeFragment_to_moviesListFragment)
             }
-            nowPlayingMoviesListBtn.setOnClickListener {
+            moreNowPlaying.setOnClickListener {
                 sharedHomeViewModel.setMoviesListType(MoviesListType.NOW_PLAYING)
                 findNavController().navigate(R.id.action_homeFragment_to_moviesListFragment)
             }
-            upcomingMoviesListBtn.setOnClickListener {
+            moreUpcoming.setOnClickListener {
                 sharedHomeViewModel.setMoviesListType(MoviesListType.UPCOMING)
                 findNavController().navigate(R.id.action_homeFragment_to_moviesListFragment)
             }
-            topRatedMoviesListBtn.setOnClickListener {
+            moreTopRated.setOnClickListener {
                 sharedHomeViewModel.setMoviesListType(MoviesListType.TOP_RATED)
                 findNavController().navigate(R.id.action_homeFragment_to_moviesListFragment)
             }
 
         }
-
-        setupViewModelObservers()
     }
 
     private fun setupViewModelObservers() {
         sharedHomeViewModel.popularMoviesList.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Success, see the log!", Toast.LENGTH_SHORT)
-                        .show()
+                    popularMoviesAdapter.submitList(resource.data!!.movies)
                 }
 
                 Resource.Status.LOADING -> {
@@ -77,8 +84,7 @@ class HomeFragment : Fragment() {
         sharedHomeViewModel.nowPlayingMoviesList.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Success, see the log!", Toast.LENGTH_SHORT)
-                        .show()
+                    nowPlayingMoviesAdapter.submitList(resource.data!!.movies)
                 }
 
                 Resource.Status.LOADING -> {
@@ -92,8 +98,7 @@ class HomeFragment : Fragment() {
         sharedHomeViewModel.upcomingMoviesList.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Success, see the log!", Toast.LENGTH_SHORT)
-                        .show()
+                    upcomingMoviesAdapter.submitList(resource.data!!.movies)
                 }
 
                 Resource.Status.LOADING -> {
@@ -107,8 +112,7 @@ class HomeFragment : Fragment() {
         sharedHomeViewModel.topRatedMoviesList.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Success, see the log!", Toast.LENGTH_SHORT)
-                        .show()
+                    topRatedMoviesAdapter.submitList(resource.data!!.movies)
                 }
 
                 Resource.Status.LOADING -> {
@@ -119,6 +123,50 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun popularRecViewSetup() {
+        binding.popularRecView.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        popularMoviesAdapter = PosterMoviesAdapter(object : PosterItemListener {
+            override fun onClick(item: Movie, position: Int) {
+
+            }
+        })
+        binding.popularRecView.adapter = popularMoviesAdapter
+    }
+
+    private fun nowPlayingRecViewSetup() {
+        binding.nowPlayingRecView.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        nowPlayingMoviesAdapter = BackdropMoviesAdapter(object : BackdropItemListener {
+            override fun onClick(item: Movie, position: Int) {
+
+            }
+        })
+        binding.nowPlayingRecView.adapter = nowPlayingMoviesAdapter
+    }
+
+    private fun upcomingRecViewSetup() {
+        binding.upcomingRecView.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        upcomingMoviesAdapter = BackdropMoviesAdapter(object : BackdropItemListener {
+            override fun onClick(item: Movie, position: Int) {
+
+            }
+        })
+        binding.upcomingRecView.adapter = upcomingMoviesAdapter
+    }
+
+    private fun topRatedRecViewSetup() {
+        binding.topRatedRecView.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        topRatedMoviesAdapter = MoviesAdapter(object : MovieItemListener {
+            override fun onClick(item: Movie, position: Int) {
+
+            }
+        })
+        binding.topRatedRecView.adapter = topRatedMoviesAdapter
     }
 
     override fun onDestroyView() {

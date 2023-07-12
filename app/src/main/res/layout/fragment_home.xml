@@ -33,6 +33,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
+                        android:id="@+id/morePopular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -45,6 +46,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
                             android:text="more"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -52,7 +54,7 @@
                             android:layout_width="20dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_styled_next_arrow"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="@color/black" />
 
                     </LinearLayout>
 
@@ -63,13 +65,15 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="Popular"
-                        android:textSize="22sp" />
+                        android:textColor="@color/black"
+                        android:textSize="26sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/popularRecView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/popularHeaderLayout" />
@@ -79,12 +83,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/popularRecView">
 
                     <LinearLayout
+                        android:id="@+id/moreNowPlaying"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -97,14 +103,15 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
                             android:text="more"
-                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_styled_next_arrow"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="@color/black" />
 
                     </LinearLayout>
 
@@ -115,13 +122,15 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="Now Playing"
-                        android:textSize="22sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/nowPlayingRecView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/nowPlayingHeaderLayout" />
@@ -131,12 +140,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/nowPlayingRecView">
 
                     <LinearLayout
+                        android:id="@+id/moreUpcoming"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -149,14 +160,15 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
                             android:text="more"
-                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_styled_next_arrow"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="@color/black" />
 
                     </LinearLayout>
 
@@ -167,13 +179,15 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="Upcoming"
-                        android:textSize="22sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/upcomingRecView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/upcomingHeaderLayout" />
@@ -183,12 +197,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/upcomingRecView">
 
                     <LinearLayout
+                        android:id="@+id/moreTopRated"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -201,14 +217,15 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
                             android:text="more"
-                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="15dp"
                             android:src="@drawable/ic_styled_next_arrow"
-                            app:tint="?attr/colorPrimary" />
+                            app:tint="@color/black" />
 
                     </LinearLayout>
 
@@ -219,13 +236,15 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/inter_bold"
                         android:text="Top 10 Movies"
-                        android:textSize="22sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/topRatedRecView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/topRatedHeaderLayout" />

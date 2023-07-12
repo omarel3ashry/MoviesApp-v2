@@ -1,10 +1,14 @@
 package com.example.moviesappv2.presentation
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.moviesappv2.R
 import com.example.moviesappv2.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,17 +29,18 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNav,
             navController
         )
+        setStatusBarGradiant()
 
 
-        // TODO: remove if not willing to use actionbar in the design.
-        /*        appBarConfiguration = AppBarConfiguration(
-                    setOf(R.id.homeFragment, R.id.searchFragment,  R.id.favoritesFragment)
-                )
-                setupActionBarWithNavController(navController, appBarConfiguration)*/
     }
 
-    // TODO: remove if not willing to use actionbar in the design.
-    /*    override fun onSupportNavigateUp(): Boolean {
-            return navController.navigateUp(appBarConfiguration)
-        }*/
+    private fun setStatusBarGradiant() {
+        val window: Window = this.window
+        val background = ContextCompat.getDrawable(this, R.drawable.gradiant)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        window.setBackgroundDrawable(background)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
 }
