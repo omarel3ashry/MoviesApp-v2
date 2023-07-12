@@ -1,5 +1,6 @@
 package com.example.moviesappv2.data.remote.dto
 
+import com.example.moviesappv2.common.Constants
 import com.example.moviesappv2.common.MovieGenre
 import com.example.moviesappv2.domain.model.Movie
 import com.google.gson.annotations.SerializedName
@@ -34,12 +35,12 @@ data class MovieDto(
 
 fun MovieDto.toMovie(): Movie = Movie(
     adult = adult,
-    backdropPath = backdropPath,
+    backdropPath = Constants.BASE_MOVIE_IMAGE_URL + backdropPath,
     genreIds.map { MovieGenre.GENRES[it] ?: "" },
     id = id,
     originalLanguage = originalLanguage,
     overview = overview,
-    posterPath = posterPath,
+    posterPath = Constants.BASE_MOVIE_IMAGE_URL + posterPath,
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage
