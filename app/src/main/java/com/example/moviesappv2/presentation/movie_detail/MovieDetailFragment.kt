@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesappv2.common.Resource
 import com.example.moviesappv2.databinding.FragmentMovieDetailBinding
@@ -19,6 +20,7 @@ class MovieDetailFragment : Fragment() {
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MovieDetailViewModel by viewModels()
+    private lateinit var movieGenresAdapter: MovieGenresAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +48,7 @@ class MovieDetailFragment : Fragment() {
                         overviewTV.text = resource.data.overview
                         rateTV.text = resource.data.voteAverage.toString()
                     }
+                    populateGenreRecView(resource.data.genres)
                 }
 
                 Resource.Status.LOADING -> {
@@ -77,6 +80,14 @@ class MovieDetailFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun populateGenreRecView(genres: List<String>) {
+        binding.genreRV.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        movieGenresAdapter = MovieGenresAdapter()
+        binding.genreRV.adapter = movieGenresAdapter
+        movieGenresAdapter.submitList(genres)
     }
 
     override fun onDestroyView() {

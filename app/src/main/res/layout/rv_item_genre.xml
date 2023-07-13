@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_marginStart="3dp"
     android:layout_marginEnd="3dp"
     android:background="@drawable/outline_black"
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:fontFamily="@font/inter_bold"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         tools:text="Action" />
 </LinearLayout>

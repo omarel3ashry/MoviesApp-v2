@@ -27,7 +27,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 app:cardCornerRadius="20dp"
-                app:strokeColor="@color/black">
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
 
                 <ImageView
                     android:id="@+id/backdropImgView"
@@ -40,22 +41,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ListView
-                    android:id="@+id/genreLV"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/genreRV"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1" />
 
                 <LinearLayout
                     android:id="@+id/rateLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/outline_black"
                     android:gravity="center"
@@ -70,12 +74,12 @@
                         android:layout_margin="5dp"
                         android:fontFamily="@font/inter_bold"
                         android:maxLength="3"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         tools:text="8.3" />
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:src="@drawable/ic_star" />
                 </LinearLayout>
             </LinearLayout>
@@ -85,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/inter_medium"
                 android:textAlignment="center"
