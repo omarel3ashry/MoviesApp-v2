@@ -1,5 +1,6 @@
 package com.example.moviesappv2.data.remote
 
+import com.example.moviesappv2.data.remote.dto.MovieDetailDto
 import com.example.moviesappv2.data.remote.dto.MovieDto
 import com.example.moviesappv2.data.remote.dto.MoviesListDto
 import retrofit2.http.GET
@@ -23,5 +24,8 @@ interface MoviesApi {
     suspend fun getUpComingMovies(): MoviesListDto
 
     @GET("{movie_id}")
-    suspend fun getMovieDetail(@Path("movie_id") movieId: Int): MovieDto
+    suspend fun getMovieDetail(@Path("movie_id") movieId: Int): MovieDetailDto
+
+    @GET("{movie_id}/recommendations")
+    suspend fun getSimilarMovies(@Path("movie_id") movieId: Int): MoviesListDto
 }

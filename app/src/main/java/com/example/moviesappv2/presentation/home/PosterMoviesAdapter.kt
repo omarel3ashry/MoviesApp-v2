@@ -48,6 +48,9 @@ class PosterMoviesAdapter(private val itemListener: PosterItemListener) :
                 .placeholder(R.drawable.poster_placeholder)
                 .error(R.drawable.poster_placeholder)
                 .into(binding.posterImgView)
+            binding.rateTV.text = item.voteAverage.toString()
+            if (item.voteAverage > 0.0) binding.rateLayout.visibility = View.VISIBLE
+            else binding.rateLayout.visibility = View.GONE
         }
     }
 }

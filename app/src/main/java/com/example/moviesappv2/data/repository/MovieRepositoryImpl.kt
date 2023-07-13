@@ -3,6 +3,7 @@ package com.example.moviesappv2.data.repository
 import com.example.moviesappv2.common.MoviesListType
 import com.example.moviesappv2.common.MoviesListType.*
 import com.example.moviesappv2.data.remote.MoviesApi
+import com.example.moviesappv2.data.remote.dto.MovieDetailDto
 import com.example.moviesappv2.data.remote.dto.MovieDto
 import com.example.moviesappv2.data.remote.dto.MoviesListDto
 import com.example.moviesappv2.domain.repository.MovieRepository
@@ -13,7 +14,7 @@ import javax.inject.Inject
  */
 class MovieRepositoryImpl @Inject constructor(private val moviesApi: MoviesApi) : MovieRepository {
 
-    override suspend fun getMovieById(id: Int): MovieDto {
+    override suspend fun getMovieById(id: Int): MovieDetailDto {
         return moviesApi.getMovieDetail(id)
     }
 
@@ -24,5 +25,9 @@ class MovieRepositoryImpl @Inject constructor(private val moviesApi: MoviesApi) 
             TOP_RATED -> moviesApi.getTopRatedMovies()
             UPCOMING -> moviesApi.getUpComingMovies()
         }
+    }
+
+    override suspend fun getSimilarMovies(id: Int): MoviesListDto {
+        return moviesApi.getSimilarMovies(id)
     }
 }

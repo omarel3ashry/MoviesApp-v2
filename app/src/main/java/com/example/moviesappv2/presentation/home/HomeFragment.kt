@@ -130,7 +130,8 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
         popularMoviesAdapter = PosterMoviesAdapter(object : PosterItemListener {
             override fun onClick(item: Movie, position: Int) {
-
+                val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(item.id)
+                findNavController().navigate(action)
             }
         })
         binding.popularRecView.adapter = popularMoviesAdapter
@@ -141,7 +142,8 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
         nowPlayingMoviesAdapter = BackdropMoviesAdapter(object : BackdropItemListener {
             override fun onClick(item: Movie, position: Int) {
-
+                val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(item.id)
+                findNavController().navigate(action)
             }
         })
         binding.nowPlayingRecView.adapter = nowPlayingMoviesAdapter
@@ -152,7 +154,8 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
         upcomingMoviesAdapter = BackdropMoviesAdapter(object : BackdropItemListener {
             override fun onClick(item: Movie, position: Int) {
-
+                val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(item.id)
+                findNavController().navigate(action)
             }
         })
         binding.upcomingRecView.adapter = upcomingMoviesAdapter
@@ -163,7 +166,8 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
         topRatedMoviesAdapter = MoviesAdapter(object : MovieItemListener {
             override fun onClick(item: Movie, position: Int) {
-
+                val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(item.id)
+                findNavController().navigate(action)
             }
         })
         binding.topRatedRecView.adapter = topRatedMoviesAdapter

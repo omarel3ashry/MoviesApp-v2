@@ -49,6 +49,9 @@ class BackdropMoviesAdapter(private val itemListener: BackdropItemListener) :
                 .error(R.drawable.backdrop_placeholder)
                 .into(binding.backdropImgView)
             binding.titleTxtView.text = item.title
+            binding.rateTV.text = item.voteAverage.toString()
+            if (item.voteAverage > 0.0) binding.rateLayout.visibility = View.VISIBLE
+            else binding.rateLayout.visibility = View.GONE
         }
     }
 }

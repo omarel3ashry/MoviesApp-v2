@@ -12,10 +12,22 @@
         <action
             android:id="@+id/action_searchFragment_to_searchFilterFragment"
             app:destination="@id/searchFilterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailFragment2"
+            app:destination="@id/movieDetailFragment2" />
     </fragment>
     <fragment
         android:id="@+id/searchFilterFragment"
         android:name="com.example.moviesappv2.presentation.search.SearchFilterFragment"
         android:label="fragment_search_filter"
         tools:layout="@layout/fragment_search_filter" />
+    <fragment
+        android:id="@+id/movieDetailFragment2"
+        android:name="com.example.moviesappv2.presentation.movie_detail.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

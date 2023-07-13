@@ -1,5 +1,6 @@
 package com.example.moviesappv2.presentation.home
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,9 @@ class MoviesAdapter(private val itemListener: MovieItemListener) :
                 .error(R.drawable.poster_placeholder)
                 .into(binding.posterImgView)
             binding.titleTxtView.text = item.title
+            binding.rateTV.text = item.voteAverage.toString()
+            if (item.voteAverage > 0.0) binding.rateLayout.visibility = View.VISIBLE
+            else binding.rateLayout.visibility = View.GONE
         }
     }
 }
