@@ -1,11 +1,18 @@
-package com.example.moviesappv2.domain.model
+package com.example.moviesappv2.data.local.entities
 
-import com.example.moviesappv2.data.local.entities.MovieEntity
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.moviesappv2.common.Constants
+import com.example.moviesappv2.common.MovieGenre
+import com.example.moviesappv2.domain.model.Movie
+import com.example.moviesappv2.domain.model.ProductionCompany
 
 /**
- * Created by Omar Elashry on 7/8/2023.
+ * Created by Omar Elashry on 7/15/2023.
  */
-data class Movie(
+@Entity(tableName = "movie_table")
+data class MovieEntity(
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val adult: Boolean,
     val backdropPath: String,
@@ -18,11 +25,10 @@ data class Movie(
     val voteAverage: Double,
     val imdbId: String?,
     val revenue: Int?,
-    val tagline: String?,
-    val productionCompanies: List<ProductionCompany>?
+    val tagline: String?
 )
 
-fun Movie.toMovieEntity(): MovieEntity = MovieEntity(
+fun MovieEntity.toMovie(): Movie = Movie(
     id = id,
     adult = adult,
     backdropPath = backdropPath,
@@ -35,5 +41,6 @@ fun Movie.toMovieEntity(): MovieEntity = MovieEntity(
     voteAverage = voteAverage,
     imdbId = imdbId,
     revenue = revenue,
-    tagline = tagline
+    tagline = tagline,
+    productionCompanies = null
 )

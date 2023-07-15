@@ -34,10 +34,10 @@ data class MovieDto(
 )
 
 fun MovieDto.toMovie(): Movie = Movie(
+    id = id,
     adult = adult,
     backdropPath = Constants.BASE_MOVIE_IMAGE_URL + backdropPath,
     genreIds.map { MovieGenre.GENRES[it] ?: "" },
-    id = id,
     originalLanguage = originalLanguage,
     overview = overview,
     posterPath = Constants.BASE_MOVIE_IMAGE_URL + posterPath,
