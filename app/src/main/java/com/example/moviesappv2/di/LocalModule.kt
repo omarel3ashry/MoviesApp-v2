@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.moviesappv2.data.local.MovieDao
 import com.example.moviesappv2.data.local.MovieDatabase
+import com.example.moviesappv2.data.local.entities.ListConverter
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,13 +22,24 @@ object LocalModule {
 
     @Singleton
     @Provides
-    fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
+    fun provideGson() = Gson()
+
+    @Singleton
+    @Provides
+    fun provideTypeConverter(gson: Gson): ListConverter = ListConverter(gson)
+
+    @Singleton
+    @Provides
+    fun provideMovieDatabase(
+        @ApplicationContext context: Context,
+        listConverter: ListConverter
+    ): MovieDatabase {
         return Room.databaseBuilder(
             context,
             MovieDatabase::class.java,
             MovieDatabase.DB_NAME
         )
-            .fallbackToDestructiveMigration()
+            .addTypeConverter(listConverter)
             .build()
     }
 

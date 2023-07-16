@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesappv2.common.Resource
 import com.example.moviesappv2.databinding.FragmentMovieDetailBinding
+import com.example.moviesappv2.domain.model.Movie
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -21,6 +23,7 @@ class MovieDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MovieDetailViewModel by viewModels()
     private lateinit var movieGenresAdapter: MovieGenresAdapter
+    private lateinit var movie: Movie
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,21 +37,19 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModelObservers()
+        // just for testing, will make it toggle next.
+        binding.favTV.setOnClickListener {
+            viewModel.addMovieToFav(movie)
+        }
+
     }
 
     private fun setupViewModelObservers() {
         viewModel.movieDetail.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    Glide.with(requireContext())
-                        .load(resource.data!!.backdropPath)
-                        .into(binding.backdropImgView)
-                    binding.apply {
-                        titleTV.text = resource.data.title
-                        overviewTV.text = resource.data.overview
-                        rateTV.text = resource.data.voteAverage.toString()
-                    }
-                    populateGenreRecView(resource.data.genres)
+                    movie = resource.data!!
+                    bindMovieData(resource.data)
                 }
 
                 Resource.Status.LOADING -> {
@@ -80,6 +81,35 @@ class MovieDetailFragment : Fragment() {
             }
 
         }
+        viewModel.favMovie.observe(viewLifecycleOwner) { favMovie ->
+            movie = favMovie
+            bindMovieData(favMovie)
+        }
+        viewModel.favMovieId.observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Resource.Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "id = ${resource.data}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                Resource.Status.LOADING -> {}
+                Resource.Status.ERROR -> {
+                    Log.d("MovieDetailFragment", "${resource.message}")
+                }
+            }
+        }
+    }
+
+    private fun bindMovieData(movie: Movie) {
+        Glide.with(requireContext())
+            .load(movie.backdropPath)
+            .into(binding.backdropImgView)
+        binding.apply {
+            titleTV.text = movie.title
+            overviewTV.text = movie.overview
+            rateTV.text = movie.voteAverage.toString()
+        }
+        populateGenreRecView(movie.genres)
     }
 
     private fun populateGenreRecView(genres: List<String>) {

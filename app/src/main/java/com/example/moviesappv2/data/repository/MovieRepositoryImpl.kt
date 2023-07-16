@@ -12,6 +12,7 @@ import com.example.moviesappv2.data.remote.MoviesApi
 import com.example.moviesappv2.data.remote.dto.MovieDetailDto
 import com.example.moviesappv2.data.remote.dto.MoviesListDto
 import com.example.moviesappv2.domain.repository.MovieRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -45,15 +46,11 @@ class MovieRepositoryImpl @Inject constructor(
         return movieDao.getMovie(id)
     }
 
-    override suspend fun getFavMovies(): LiveData<List<MovieEntity>> {
+    override fun getFavMovies(): Flow<List<MovieEntity>> {
         return movieDao.getMovies()
     }
 
-    override suspend fun addMovieToFav(movieEntity: MovieEntity) {
-        return movieDao.insertMovie(movieEntity)
-    }
-
-    override suspend fun updateFavMovie(movieEntity: MovieEntity) {
+    override suspend fun addMovieToFav(movieEntity: MovieEntity): Long {
         return movieDao.insertMovie(movieEntity)
     }
 

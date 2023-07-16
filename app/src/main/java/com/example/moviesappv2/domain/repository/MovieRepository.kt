@@ -6,6 +6,7 @@ import com.example.moviesappv2.data.local.entities.MovieEntity
 import com.example.moviesappv2.data.remote.dto.MovieDetailDto
 import com.example.moviesappv2.data.remote.dto.MovieDto
 import com.example.moviesappv2.data.remote.dto.MoviesListDto
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Omar Elashry on 7/8/2023.
@@ -19,8 +20,7 @@ interface MovieRepository {
 
     // local
     suspend fun getFavMovieById(id: Int): MovieEntity
-    suspend fun getFavMovies(): LiveData<List<MovieEntity>>
-    suspend fun addMovieToFav(movieEntity: MovieEntity)
-    suspend fun updateFavMovie(movieEntity: MovieEntity)
+    fun getFavMovies(): Flow<List<MovieEntity>>
+    suspend fun addMovieToFav(movieEntity: MovieEntity): Long
     suspend fun removeFavMovie(movieEntity: MovieEntity)
 }
