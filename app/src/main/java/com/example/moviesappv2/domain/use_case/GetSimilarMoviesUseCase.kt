@@ -1,9 +1,7 @@
 package com.example.moviesappv2.domain.use_case
 
 import com.example.moviesappv2.common.Resource
-import com.example.moviesappv2.data.remote.dto.toMovie
 import com.example.moviesappv2.data.remote.dto.toMoviesList
-import com.example.moviesappv2.domain.model.Movie
 import com.example.moviesappv2.domain.model.MoviesList
 import com.example.moviesappv2.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow

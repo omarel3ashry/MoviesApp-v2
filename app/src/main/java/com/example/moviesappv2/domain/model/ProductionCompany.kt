@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class ProductionCompany(
-    val logoPath: String,
+    val logoPath: String?,
     val name: String
 ) : Parcelable

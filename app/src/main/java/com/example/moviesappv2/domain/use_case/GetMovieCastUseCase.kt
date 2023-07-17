@@ -1,8 +1,8 @@
 package com.example.moviesappv2.domain.use_case
 
 import com.example.moviesappv2.common.Resource
-import com.example.moviesappv2.data.remote.dto.toMovie
-import com.example.moviesappv2.domain.model.Movie
+import com.example.moviesappv2.data.remote.dto.toCast
+import com.example.moviesappv2.domain.model.Cast
 import com.example.moviesappv2.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,14 +13,13 @@ import javax.inject.Inject
 /**
  * Created by Omar Elashry on 7/8/2023.
  */
-class GetMovieDetailUseCase @Inject constructor(private val movieRepository: MovieRepository) {
+class GetMovieCastUseCase @Inject constructor(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(movieId: Int): Flow<Resource<Movie>> = flow {
+    operator fun invoke(movieId: Int): Flow<Resource<List<Cast>>> = flow {
         emit(Resource.loading(null))
         try {
-            val movie = movieRepository.getMovieById(movieId)
-            movie.productionCompanies.filterNot { it.logoPath.isNullOrEmpty() }
-            emit(Resource.success(movie.toMovie()))
+            val castList = movieRepository.getMovieCredit(movieId).cast.map { it.toCast() }
+            emit(Resource.success(castList))
         } catch (e: HttpException) {
             emit(Resource.error(null, e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException) {

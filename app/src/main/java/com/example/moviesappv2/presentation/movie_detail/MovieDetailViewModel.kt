@@ -6,10 +6,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesappv2.common.Resource
+import com.example.moviesappv2.domain.model.Cast
 import com.example.moviesappv2.domain.model.Movie
 import com.example.moviesappv2.domain.model.MoviesList
 import com.example.moviesappv2.domain.use_case.AddMovieToFavUseCase
 import com.example.moviesappv2.domain.use_case.GetFavMovieUseCase
+import com.example.moviesappv2.domain.use_case.GetMovieCastUseCase
 import com.example.moviesappv2.domain.use_case.GetMovieDetailUseCase
 import com.example.moviesappv2.domain.use_case.GetSimilarMoviesUseCase
 import com.example.moviesappv2.domain.use_case.RemoveFavMovieUseCase
@@ -28,15 +30,18 @@ class MovieDetailViewModel @Inject constructor(
     private val addMovieToFavUseCase: AddMovieToFavUseCase,
     private val removeFavMovieUseCase: RemoveFavMovieUseCase,
     private val getFavMovieUseCase: GetFavMovieUseCase,
+    private val getMovieCastUseCase: GetMovieCastUseCase,
     savedStateHandle: SavedStateHandle
 ) :
     ViewModel() {
 
     private val _movieDetail = MutableLiveData<Resource<Movie>>()
+    private val _movieCast = MutableLiveData<Resource<List<Cast>>>()
     private val _similarMovies = MutableLiveData<Resource<MoviesList>>()
     private val _favMovie = MutableLiveData<Movie>()
     private val _isFav = MutableLiveData<Boolean>()
     val movieDetail: LiveData<Resource<Movie>> get() = _movieDetail
+    val movieCast: LiveData<Resource<List<Cast>>> get() = _movieCast
     val similarMovies: LiveData<Resource<MoviesList>> get() = _similarMovies
     val favMovie: LiveData<Movie> get() = _favMovie
     val isFav: LiveData<Boolean> get() = _isFav
@@ -48,10 +53,12 @@ class MovieDetailViewModel @Inject constructor(
             getMovieDetail(movieId)
             checkIfFav(movieId)
             getSimilarMovies(movieId)
+            getMovieCast(movieId)
         } else {
             _isFav.value = true
             getMovieDetail(mFavMovie!!)
             getSimilarMovies(mFavMovie.id)
+            getMovieCast(mFavMovie.id)
         }
     }
 
@@ -68,6 +75,12 @@ class MovieDetailViewModel @Inject constructor(
     private fun getSimilarMovies(movieId: Int) {
         getSimilarMoviesUseCase(movieId)
             .onEach { _similarMovies.value = it }
+            .launchIn(viewModelScope)
+    }
+
+    private fun getMovieCast(movieId: Int) {
+        getMovieCastUseCase(movieId)
+            .onEach { _movieCast.value = it }
             .launchIn(viewModelScope)
     }
 

@@ -1,6 +1,5 @@
 package com.example.moviesappv2.data.repository
 
-import androidx.lifecycle.LiveData
 import com.example.moviesappv2.common.MoviesListType
 import com.example.moviesappv2.common.MoviesListType.NOW_PLAYING
 import com.example.moviesappv2.common.MoviesListType.POPULAR
@@ -9,6 +8,7 @@ import com.example.moviesappv2.common.MoviesListType.UPCOMING
 import com.example.moviesappv2.data.local.MovieDao
 import com.example.moviesappv2.data.local.entities.MovieEntity
 import com.example.moviesappv2.data.remote.MoviesApi
+import com.example.moviesappv2.data.remote.dto.MovieCreditDto
 import com.example.moviesappv2.data.remote.dto.MovieDetailDto
 import com.example.moviesappv2.data.remote.dto.MoviesListDto
 import com.example.moviesappv2.domain.repository.MovieRepository
@@ -39,6 +39,10 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getSimilarMovies(id: Int): MoviesListDto {
         return moviesApi.getSimilarMovies(id)
+    }
+
+    override suspend fun getMovieCredit(id: Int): MovieCreditDto {
+        return moviesApi.getMovieCredit(id)
     }
 
     // local

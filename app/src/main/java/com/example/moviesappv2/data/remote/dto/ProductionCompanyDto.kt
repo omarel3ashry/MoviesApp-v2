@@ -10,13 +10,13 @@ import com.google.gson.annotations.SerializedName
 data class ProductionCompanyDto(
     val id: Int,
     @SerializedName("logo_path")
-    val logoPath: String,
+    val logoPath: String?,
     val name: String,
     @SerializedName("origin_country")
     val originCountry: String
 )
 
 fun ProductionCompanyDto.toProdCompany(): ProductionCompany = ProductionCompany(
-    logoPath = Constants.BASE_MOVIE_IMAGE_URL + logoPath,
+    logoPath =  Constants.PROFILE_AND_LOGO_IMAGE_URL.plus(logoPath),
     name = name
 )

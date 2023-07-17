@@ -1,7 +1,6 @@
 package com.example.moviesappv2.data.remote.dto
 
 
-import com.example.moviesappv2.common.MovieGenre
 import com.example.moviesappv2.domain.model.MoviesList
 import com.google.gson.annotations.SerializedName
 

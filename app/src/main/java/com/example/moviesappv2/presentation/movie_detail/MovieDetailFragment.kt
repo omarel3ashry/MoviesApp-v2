@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesappv2.common.Resource
 import com.example.moviesappv2.databinding.FragmentMovieDetailBinding
+import com.example.moviesappv2.domain.model.Cast
 import com.example.moviesappv2.domain.model.Movie
+import com.example.moviesappv2.domain.model.ProductionCompany
 import com.example.moviesappv2.presentation.home.MovieItemListener
 import com.example.moviesappv2.presentation.home.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,8 @@ class MovieDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MovieDetailViewModel by viewModels()
     private lateinit var movieGenresAdapter: MovieGenresAdapter
+    private lateinit var castAdapter: CastAdapter
+    private lateinit var prodCompanyAdapter: ProdCompanyAdapter
     private lateinit var similarMoviesAdapter: MoviesAdapter
     private lateinit var movie: Movie
 
@@ -51,6 +55,23 @@ class MovieDetailFragment : Fragment() {
                 Resource.Status.SUCCESS -> {
                     movie = resource.data!!
                     bindMovieData(resource.data)
+                }
+
+                Resource.Status.LOADING -> {
+                }
+
+                Resource.Status.ERROR -> {
+                    Log.d(
+                        "MovieDetailFragment",
+                        "setupViewModelObservers: ${resource.message}"
+                    )
+                }
+            }
+        }
+        viewModel.movieCast.observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Resource.Status.SUCCESS -> {
+                    populateMovieCastRecView(resource.data!!)
                 }
 
                 Resource.Status.LOADING -> {
@@ -101,6 +122,7 @@ class MovieDetailFragment : Fragment() {
             rateTV.text = movie.voteAverage.toString()
         }
         populateGenreRecView(movie.genres)
+        populateProdCompanyRecView(movie.productionCompanies!!)
     }
 
     private fun populateGenreRecView(genres: List<String>) {
@@ -109,6 +131,22 @@ class MovieDetailFragment : Fragment() {
         movieGenresAdapter = MovieGenresAdapter()
         binding.genreRV.adapter = movieGenresAdapter
         movieGenresAdapter.submitList(genres)
+    }
+
+    private fun populateMovieCastRecView(castList: List<Cast>) {
+        binding.movieCastRV.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        castAdapter = CastAdapter()
+        binding.movieCastRV.adapter = castAdapter
+        castAdapter.submitList(castList)
+    }
+
+    private fun populateProdCompanyRecView(prodList: List<ProductionCompany>) {
+        binding.prodCompanyRV.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        prodCompanyAdapter = ProdCompanyAdapter()
+        binding.prodCompanyRV.adapter = prodCompanyAdapter
+        prodCompanyAdapter.submitList(prodList)
     }
 
     private fun populateSimilarMoviesRecView(movies: List<Movie>) {
