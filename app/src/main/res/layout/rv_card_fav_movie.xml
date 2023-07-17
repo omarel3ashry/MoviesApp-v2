@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="160dp"
+        android:layout_width="150dp"
         android:layout_height="200dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="20dp"
@@ -45,6 +47,7 @@
                 android:paddingTop="3dp"
                 android:paddingEnd="6dp"
                 android:paddingBottom="3dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -65,19 +68,18 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/view_oval_bg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/view_custom_curved_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="3dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="7dp"
                     android:src="@drawable/ic_heart" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -93,7 +95,7 @@
         android:fontFamily="@font/inter_medium"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         tools:ignore="TextSizeCheck"
-        tools:text="The Shawshank redemption" />
+        tools:text="The Godfather Part II" />
 </LinearLayout>

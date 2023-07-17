@@ -9,6 +9,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ProductionCompany(
     val logoPath: String,
-    val name: String,
-    val originCountry: String
+    val name: String
 ) : Parcelable

@@ -1,15 +1,23 @@
 package com.example.moviesappv2.presentation
 
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.view.Gravity
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+
 import com.example.moviesappv2.R
 import com.example.moviesappv2.databinding.ActivityMainBinding
+import com.example.moviesappv2.presentation.movie_detail.MovieDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             navController
         )
         setStatusBarGradiant()
-
+        handleBottomNavVisibility()
 
     }
 
@@ -42,5 +50,32 @@ class MainActivity : AppCompatActivity() {
         window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         window.setBackgroundDrawable(background)
 //        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    private fun handleBottomNavVisibility() {
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object :
+            FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentViewCreated(
+                fm: FragmentManager,
+                f: Fragment,
+                v: View,
+                savedInstanceState: Bundle?
+            ) {
+                TransitionManager.beginDelayedTransition(
+                    binding.root,
+                    Slide(Gravity.BOTTOM).excludeTarget(R.id.fragmentContainer, true)
+                )
+                when (f) {
+                    is MovieDetailFragment -> {
+                        binding.bottomNav.visibility = View.GONE
+                    }
+
+                    else -> {
+                        binding.bottomNav.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }, true)
+
     }
 }

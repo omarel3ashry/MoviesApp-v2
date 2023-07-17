@@ -1,11 +1,11 @@
 package com.example.moviesappv2.presentation.movie_detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.example.moviesappv2.common.Resource
 import com.example.moviesappv2.databinding.FragmentMovieDetailBinding
 import com.example.moviesappv2.domain.model.Movie
+import com.example.moviesappv2.presentation.home.MovieItemListener
+import com.example.moviesappv2.presentation.home.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -23,6 +25,7 @@ class MovieDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MovieDetailViewModel by viewModels()
     private lateinit var movieGenresAdapter: MovieGenresAdapter
+    private lateinit var similarMoviesAdapter: MoviesAdapter
     private lateinit var movie: Movie
 
     override fun onCreateView(
@@ -38,9 +41,7 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViewModelObservers()
         // just for testing, will make it toggle next.
-        binding.favTV.setOnClickListener {
-            viewModel.addMovieToFav(movie)
-        }
+
 
     }
 
@@ -66,7 +67,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.similarMovies.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-
+                    populateSimilarMoviesRecView(resource.data!!.movies)
                 }
 
                 Resource.Status.LOADING -> {
@@ -85,18 +86,8 @@ class MovieDetailFragment : Fragment() {
             movie = favMovie
             bindMovieData(favMovie)
         }
-        viewModel.favMovieId.observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Resource.Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "id = ${resource.data}", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                Resource.Status.LOADING -> {}
-                Resource.Status.ERROR -> {
-                    Log.d("MovieDetailFragment", "${resource.message}")
-                }
-            }
+        viewModel.isFav.observe(viewLifecycleOwner) { isFav ->
+            toggleFavBtn(isFav)
         }
     }
 
@@ -118,6 +109,40 @@ class MovieDetailFragment : Fragment() {
         movieGenresAdapter = MovieGenresAdapter()
         binding.genreRV.adapter = movieGenresAdapter
         movieGenresAdapter.submitList(genres)
+    }
+
+    private fun populateSimilarMoviesRecView(movies: List<Movie>) {
+        if (movies.isNotEmpty()) {
+            binding.similarMoviesTV.visibility = View.VISIBLE
+            binding.similarMoviesRV.visibility = View.VISIBLE
+            binding.similarMoviesRV.layoutManager =
+                LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+            similarMoviesAdapter = MoviesAdapter(object : MovieItemListener {
+                override fun onClick(item: Movie, position: Int) {
+                }
+            })
+            binding.similarMoviesRV.adapter = similarMoviesAdapter
+            similarMoviesAdapter.submitList(movies)
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun toggleFavBtn(isFav: Boolean) {
+        binding.favProgressBar.visibility = View.GONE
+        binding.favToggleBtn.visibility = View.VISIBLE
+        if (isFav) {
+            binding.favTV.text = "Unfavorite"
+            binding.favToggleBtn.isChecked = true
+            binding.favToggleBtn.setOnClickListener {
+                viewModel.removeMovieFromFav(movie)
+            }
+        } else {
+            binding.favTV.text = "Favorite"
+            binding.favToggleBtn.isChecked = false
+            binding.favToggleBtn.setOnClickListener {
+                viewModel.addMovieToFav(movie)
+            }
+        }
     }
 
     override fun onDestroyView() {

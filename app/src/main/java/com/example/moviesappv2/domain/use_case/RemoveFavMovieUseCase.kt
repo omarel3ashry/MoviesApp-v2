@@ -13,13 +13,13 @@ import javax.inject.Inject
  */
 class RemoveFavMovieUseCase @Inject constructor(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(movie: Movie): Flow<Resource<Movie>> = flow {
-        emit(Resource.loading(null))
+    operator fun invoke(movie: Movie): Flow<Resource<Boolean>> = flow {
+        emit(Resource.loading(false))
         try {
             movieRepository.removeFavMovie(movie.toMovieEntity())
-            emit(Resource.success(movie))
+            emit(Resource.success(true))
         } catch (e: Exception) {
-            emit(Resource.error(null, e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Resource.error(false, e.localizedMessage ?: "An unexpected error occurred"))
         }
     }
 }

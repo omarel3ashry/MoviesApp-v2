@@ -13,13 +13,13 @@ import javax.inject.Inject
  */
 class AddMovieToFavUseCase @Inject constructor(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(movie: Movie): Flow<Resource<Long>> = flow {
-        emit(Resource.loading(null))
+    operator fun invoke(movie: Movie): Flow<Resource<Boolean>> = flow {
+        emit(Resource.loading(false))
         try {
             val favMovieId = movieRepository.addMovieToFav(movie.toMovieEntity())
-            emit(Resource.success(favMovieId))
+            emit(Resource.success(favMovieId.toInt() == movie.id))
         } catch (e: Exception) {
-            emit(Resource.error(null, e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Resource.error(false, e.localizedMessage ?: "An unexpected error occurred"))
         }
     }
 //    suspend fun invoke(movie: Movie):Long = movieRepository.addMovieToFav(movie.toMovieEntity())

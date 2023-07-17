@@ -18,6 +18,5 @@ data class ProductionCompanyDto(
 
 fun ProductionCompanyDto.toProdCompany(): ProductionCompany = ProductionCompany(
     logoPath = Constants.BASE_MOVIE_IMAGE_URL + logoPath,
-    name = name,
-    originCountry = originCountry
+    name = name
 )
