@@ -24,7 +24,7 @@ data class MovieDetailDto(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompanyDto>,
+    var productionCompanies: List<ProductionCompanyDto>,
     @SerializedName("release_date")
     val releaseDate: String,
     val revenue: Int,

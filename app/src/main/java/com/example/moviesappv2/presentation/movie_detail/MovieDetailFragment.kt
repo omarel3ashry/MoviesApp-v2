@@ -54,7 +54,8 @@ class MovieDetailFragment : Fragment() {
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
                     movie = resource.data!!
-                    bindMovieData(resource.data)
+                    bindMovieData(movie)
+                    populateProdCompanyRecView(movie.productionCompanies!!)
                 }
 
                 Resource.Status.LOADING -> {
@@ -122,7 +123,6 @@ class MovieDetailFragment : Fragment() {
             rateTV.text = movie.voteAverage.toString()
         }
         populateGenreRecView(movie.genres)
-        populateProdCompanyRecView(movie.productionCompanies!!)
     }
 
     private fun populateGenreRecView(genres: List<String>) {
@@ -142,11 +142,15 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun populateProdCompanyRecView(prodList: List<ProductionCompany>) {
-        binding.prodCompanyRV.layoutManager =
-            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-        prodCompanyAdapter = ProdCompanyAdapter()
-        binding.prodCompanyRV.adapter = prodCompanyAdapter
-        prodCompanyAdapter.submitList(prodList)
+        if (prodList.isNotEmpty()) {
+            binding.prodCompanyTV.visibility = View.VISIBLE
+            binding.prodCompanyRV.visibility = View.VISIBLE
+            binding.prodCompanyRV.layoutManager =
+                LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+            prodCompanyAdapter = ProdCompanyAdapter()
+            binding.prodCompanyRV.adapter = prodCompanyAdapter
+            prodCompanyAdapter.submitList(prodList)
+        }
     }
 
     private fun populateSimilarMoviesRecView(movies: List<Movie>) {

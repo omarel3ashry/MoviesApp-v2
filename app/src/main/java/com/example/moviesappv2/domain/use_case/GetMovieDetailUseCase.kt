@@ -18,9 +18,10 @@ class GetMovieDetailUseCase @Inject constructor(private val movieRepository: Mov
     operator fun invoke(movieId: Int): Flow<Resource<Movie>> = flow {
         emit(Resource.loading(null))
         try {
-            val movie = movieRepository.getMovieById(movieId)
-            movie.productionCompanies.filterNot { it.logoPath.isNullOrEmpty() }
-            emit(Resource.success(movie.toMovie()))
+            val movieDto = movieRepository.getMovieById(movieId)
+            val filteredList = movieDto.productionCompanies.filterNot { it.logoPath.isNullOrEmpty() }
+            movieDto.productionCompanies = filteredList
+            emit(Resource.success(movieDto.toMovie()))
         } catch (e: HttpException) {
             emit(Resource.error(null, e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException) {

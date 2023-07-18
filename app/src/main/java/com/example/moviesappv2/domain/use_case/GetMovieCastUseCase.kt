@@ -18,8 +18,9 @@ class GetMovieCastUseCase @Inject constructor(private val movieRepository: Movie
     operator fun invoke(movieId: Int): Flow<Resource<List<Cast>>> = flow {
         emit(Resource.loading(null))
         try {
-            val castList = movieRepository.getMovieCredit(movieId).cast.map { it.toCast() }
-            emit(Resource.success(castList))
+            val castList = movieRepository.getMovieCredit(movieId)
+            val filteredList = castList.cast.filterNot { it.profilePath.isNullOrEmpty() }
+            emit(Resource.success(filteredList.map { it.toCast() }))
         } catch (e: HttpException) {
             emit(Resource.error(null, e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException) {
