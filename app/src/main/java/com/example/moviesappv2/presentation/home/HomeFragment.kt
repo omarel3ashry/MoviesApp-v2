@@ -112,7 +112,7 @@ class HomeFragment : Fragment() {
         sharedHomeViewModel.topRatedMoviesList.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    topRatedMoviesAdapter.submitList(resource.data!!.movies)
+                    topRatedMoviesAdapter.submitList(resource.data!!.movies.take(10))
                 }
 
                 Resource.Status.LOADING -> {

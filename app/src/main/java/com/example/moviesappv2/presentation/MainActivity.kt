@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.moviesappv2.R
 import com.example.moviesappv2.databinding.ActivityMainBinding
 import com.example.moviesappv2.presentation.movie_detail.MovieDetailFragment
+import com.example.moviesappv2.presentation.movies_list.MoviesListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     Slide(Gravity.BOTTOM).excludeTarget(R.id.fragmentContainer, true)
                 )
                 when (f) {
-                    is MovieDetailFragment -> {
+                    is MovieDetailFragment , is MoviesListFragment -> {
                         binding.bottomNav.visibility = View.GONE
                     }
 
