@@ -16,7 +16,7 @@
             android:id="@+id/action_searchFragment_to_movieDetailFragment2"
             app:destination="@id/movieDetailFragment2" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/searchFilterFragment"
         android:name="com.example.moviesappv2.presentation.search.SearchFilterFragment"
         android:label="fragment_search_filter"
