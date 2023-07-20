@@ -1,11 +1,9 @@
 package com.example.moviesappv2.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.example.moviesappv2.common.MoviesListType
 import com.example.moviesappv2.data.local.entities.MovieEntity
 import com.example.moviesappv2.data.remote.dto.MovieCreditDto
 import com.example.moviesappv2.data.remote.dto.MovieDetailDto
-import com.example.moviesappv2.data.remote.dto.MovieDto
 import com.example.moviesappv2.data.remote.dto.MoviesListDto
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +17,7 @@ interface MovieRepository {
     suspend fun getMoviesList(listType: MoviesListType): MoviesListDto
     suspend fun getSimilarMovies(id: Int): MoviesListDto
     suspend fun getMovieCredit(id: Int): MovieCreditDto
+    suspend fun getFilteredMovies(queryMap: Map<String, String>): MoviesListDto
 
     // local
     suspend fun getFavMovieById(id: Int): MovieEntity

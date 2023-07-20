@@ -45,6 +45,10 @@ class MovieRepositoryImpl @Inject constructor(
         return moviesApi.getMovieCredit(id)
     }
 
+    override suspend fun getFilteredMovies(queryMap: Map<String, String>): MoviesListDto {
+        return moviesApi.getFilteredMovies(queryMap)
+    }
+
     // local
     override suspend fun getFavMovieById(id: Int): MovieEntity {
         return movieDao.getMovie(id)

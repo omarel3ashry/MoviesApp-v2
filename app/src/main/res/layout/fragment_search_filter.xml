@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     tools:context=".presentation.search.SearchFilterFragment"
     tools:ignore="HardcodedText">
 
@@ -19,24 +20,30 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sortByHeader"
         android:layout_marginStart="10dp"
+        app:checkedChip="@id/popularityChip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:selectionRequired="true"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/popularityChip"
             style="@style/MyChipStyle"
             android:text="popularity" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/voteChip"
             style="@style/MyChipStyle"
             android:text="vote" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/dateChip"
             style="@style/MyChipStyle"
             android:text="date" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/revenueChip"
             style="@style/MyChipStyle"
             android:text="revenue" />
     </com.google.android.material.chip.ChipGroup>
@@ -56,68 +63,7 @@
         app:chipSpacingVertical="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="action" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="adventure" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="animation" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="comedy" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="crime" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="documentary" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="drama" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="fantasy" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="history" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="horror" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="mystery" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="romance" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="sci-fi" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="thriller" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/MyChipStyle"
-            android:text="war" />
-    </com.google.android.material.chip.ChipGroup>
+        app:layout_constraintTop_toTopOf="parent"></com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:id="@+id/rateHeader"
@@ -166,6 +112,7 @@
         android:weightSum="2">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/resetFilterBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -176,6 +123,7 @@
             app:icon="@drawable/ic_reset" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyFilterBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
