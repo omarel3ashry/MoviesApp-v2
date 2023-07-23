@@ -1,5 +1,6 @@
 package com.example.moviesappv2.presentation.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         filteredRecViewSetup()
@@ -44,7 +46,13 @@ class SearchFragment : Fragment() {
         sharedViewModel.filteredMovies.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Resource.Status.SUCCESS -> {
-                    filteredMoviesAdapter.submitList(resource.data!!.movies)
+                    if (resource.data!!.movies.isNotEmpty()) {
+                        binding.filterTipTV.visibility = View.GONE
+                    } else {
+                        binding.filterTipTV.visibility = View.VISIBLE
+                        binding.filterTipTV.text = "No Movies Found!"
+                    }
+                    filteredMoviesAdapter.submitList(resource.data.movies)
                 }
 
                 Resource.Status.LOADING -> {

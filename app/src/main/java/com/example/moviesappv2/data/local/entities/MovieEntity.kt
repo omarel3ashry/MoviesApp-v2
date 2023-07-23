@@ -20,7 +20,7 @@ data class MovieEntity(
     var releaseDate: String,
     var title: String,
     var voteAverage: Double,
-    var imdbId: String?,
+    var imdbUrl: String?,
     var revenue: Int?,
     var tagline: String?
 )
@@ -36,7 +36,7 @@ fun MovieEntity.toMovie(): Movie = Movie(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,
-    imdbId = imdbId,
+    imdbUrl = imdbUrl,
     revenue = revenue,
     tagline = tagline,
     productionCompanies = null

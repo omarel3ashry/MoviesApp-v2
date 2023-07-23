@@ -35,11 +35,10 @@ class FavoritesFragment : Fragment() {
         favoriteRecViewSetup()
         favoritesViewModel.favoriteMovies.observe(viewLifecycleOwner) { movies ->
             if (movies != null) {
-                Log.d("FavoritesFragment", "${movies.size}")
-                favMoviesAdapter.submitList(movies)
-                for (movie in movies) {
-                    Log.d("FavoritesFragment", "id = ${movie.id}")
-                }
+                if (movies.isNotEmpty()) {
+                    binding.noFavTV.visibility = View.GONE
+                    favMoviesAdapter.submitList(movies)
+                } else binding.noFavTV.visibility = View.VISIBLE
             } else Log.d("FavoritesFragment", "it is null bro!")
         }
 

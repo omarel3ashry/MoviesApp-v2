@@ -59,7 +59,7 @@ fun MovieDetailDto.toMovie(): Movie = Movie(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,
-    imdbId = imdbId,
+    imdbUrl = Constants.IMDB_MOVIE_BASE_URL.plus(imdbId),
     revenue = revenue,
     tagline = tagline,
     productionCompanies.map { it.toProdCompany() }

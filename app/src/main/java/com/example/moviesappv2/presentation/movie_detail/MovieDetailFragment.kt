@@ -1,6 +1,8 @@
 package com.example.moviesappv2.presentation.movie_detail
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,7 +46,22 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModelObservers()
-        // just for testing, will make it toggle next.
+        binding.rateMovieTV.setOnClickListener {
+            val browserIntent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(movie.imdbUrl)
+            }
+            startActivity(browserIntent)
+        }
+        binding.shareTV.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, movie.imdbUrl)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
 
 
     }

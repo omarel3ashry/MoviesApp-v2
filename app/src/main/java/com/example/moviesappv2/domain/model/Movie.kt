@@ -19,7 +19,7 @@ data class Movie(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double,
-    val imdbId: String?,
+    val imdbUrl: String?,
     val revenue: Int?,
     val tagline: String?,
     val productionCompanies: List<ProductionCompany>?
@@ -36,7 +36,7 @@ fun Movie.toMovieEntity(): MovieEntity = MovieEntity(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,
-    imdbId = imdbId,
+    imdbUrl = imdbUrl,
     revenue = revenue,
     tagline = tagline
 )
