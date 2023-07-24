@@ -16,6 +16,7 @@
             android:id="@+id/logoIV"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:padding="5dp"
             android:scaleType="centerInside"
             android:src="@drawable/prod_company"
             tools:ignore="ContentDescription" />
