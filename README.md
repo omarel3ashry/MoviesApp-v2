@@ -2,8 +2,6 @@
 # MoviesApp-v2
 MoviesApp-v2 is an upgraded version of my MoviesApp, showcasing Clean Architecture principles, the Repository Pattern, and MVVM pattern. an Android application that allows users to discover the latest movies, view movie details, and save their favorite movies locally. This app is built with modern Android development tools and libraries, including Navigation Component, Material Components, Hilt, Kotlin Coroutines, Retrofit, and Room. It seamlessly integrates with The Movie Database (TMDB) API to fetch and display movie data.
 
-App design inspired by this [project](https://www.behance.net/gallery/159271337/UIUX-Movie-Application)
-
 ## Table of Contents
 
 - [Features](#features)
@@ -11,7 +9,9 @@ App design inspired by this [project](https://www.behance.net/gallery/159271337/
 - [Installation](#installation)
 - [API Access Token](#api-access-token)
 - [Contributing](#contributing)
+- [Todo](#todo)
 - [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ## Features
 
@@ -65,8 +65,21 @@ To use this app, you'll need to provide your own API Access Token for The Movie 
 const val TMDB_TOKEN = "YOUR_TOKEN"
 ```
 
+## Todo
+
+- [x] Add cast and production companies to movie details.
+- [ ] Search movies by keywords.
+- [ ] Add movie trailers.
+- [ ] Handle similar movies onClick to repopulate the same fragment without backstack issues.
+- [ ] Implement list pagging.
+    - [ ] MoviesListFragment
+    - [ ] SearchFragment
+
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
 ## License
 This project is licensed under the MIT License. Feel free to modify and distribute the code as long as you include the original license file.
+
+## Acknowledgments
+* App design inspired by this [project](https://www.behance.net/gallery/159271337/UIUX-Movie-Application)
